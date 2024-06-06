@@ -1,8 +1,7 @@
-import logging
-import requests
-import time
-import os
 from dotenv import load_dotenv
+from colorama import Fore
+import pyfiglet as pyg
+import time, os, requests, logging
 
 
 # Load environment variables from .env file
@@ -96,6 +95,7 @@ def display_transactions(transactions, eth_to_usd_rate):
         print()
 
 def check_wallet():
+    print(Fore.GREEN)
     wallet_address = input('Enter ERC-20 Wallet : ')
     logging.info("Checking wallet transactions...")
 
