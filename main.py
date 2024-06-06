@@ -96,7 +96,7 @@ def display_transactions(transactions, eth_to_usd_rate):
         print()
 
 def check_wallet():
-    wallet_address = input('Enter Wallet : ')
+    wallet_address = input('Enter ERC-20 Wallet : ')
     logging.info("Checking wallet transactions...")
 
     received_transactions = get_wallet_received_transactions(wallet_address, ETHERSCAN_API_KEY)

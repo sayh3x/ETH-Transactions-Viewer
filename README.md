@@ -56,7 +56,7 @@ The script will output the received transactions, wallet balance, and the balanc
 
 ```bash
 $ python eth_transactions_viewer.py
-Enter Wallet : 0x3D55CCb2a943d88D39dd2E62DAf767C69fD0179F
+Enter ERC-20 Wallet : 0x3D55CCb2a943d88D39dd2E62DAf767C69fD0179F
 2024-06-06 06:38:46,169 - INFO - Checking wallet transactions...
 2024-06-06 06:38:53,121 - INFO - Received Transactions:
 
