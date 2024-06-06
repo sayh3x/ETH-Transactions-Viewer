@@ -56,15 +56,23 @@ The script will output the received transactions, wallet balance, and the balanc
 
 ```bash
 $ python eth_transactions_viewer.py
-Enter Wallet: 0xYourEthereumWalletAddress
-Checking wallet transactions...
-Received Transactions:
-Transaction Value: 1000000000000000000
-Receiver Address: 0xReceiverAddress
+Enter Wallet : 0x3D55CCb2a943d88D39dd2E62DAf767C69fD0179F
+2024-06-06 06:38:46,169 - INFO - Checking wallet transactions...
+2024-06-06 06:38:53,121 - INFO - Received Transactions:
 
-----------------------------------
-'0xReceiverAddress'
-Send Value: 1000000000000000000
-ETH Balance: 0.5
-Convert ETH to USD: 1602.0
-----------------------------------
+---------------------'0xdac17f958d2ee523a2206206994597c13d831ec7'--------------------
+
+Send Value: 0
+ETH Balance: 1e-18
+Convert ETH to USD: 3.847840000000001e-15
+
+------------------------------------------------------------------------------------
+
+
+---------------------'0xdac17f958d2ee523a2206206994597c13d831ec7'--------------------
+
+Send Value: 0
+ETH Balance: 1e-18
+Convert ETH to USD: 3.847840000000001e-15
+
+------------------------------------------------------------------------------------
