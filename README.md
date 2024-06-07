@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/sayh3x/ETH-transactions-viewer/blob/main/assets/main.webp" style="max-width: 100%; height: auto;" alt="Main logo">
+  <img src="https://raw.githubusercontent.com/sayh3x/ETH-Transactions-Viewer/main/assets/main.webp" style="max-width: 100%; height: auto;" alt="Main logo">
 </p>
 
 # Eth-Transactions-Viewer
