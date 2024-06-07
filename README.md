@@ -25,7 +25,7 @@ Eth-Transactions-Viewer is a Python script designed to check the balance of an E
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/sayh3x/ETH-transactions-viewer.git
+    git clone https://github.com/sayh3x/eth-transactions-viewer.git
     cd eth-transactions-viewer
     ```
 
