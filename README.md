@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/sayh3x/ETH-transactions-viewer/blob/main/assets/main.webp" style="max-width: 100%; height: auto;" alt="Main logo">
+</p>
+
 # Eth-Transactions-Viewer
 
 Eth-Transactions-Viewer is a Python script designed to check the balance of an Ethereum wallet and retrieve transaction information. This tool interacts with the Etherscan API to provide detailed insights into wallet activity and balance.
@@ -21,7 +25,7 @@ Eth-Transactions-Viewer is a Python script designed to check the balance of an E
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/sayh3x/eth-transactions-viewer.git
+    git clone https://github.com/sayh3x/ETH-transactions-viewer.git
     cd eth-transactions-viewer
     ```
 
