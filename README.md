@@ -81,7 +81,7 @@ Convert ETH to USD: 3.847840000000001e-15
 
 ## Troubleshooting
 
-![Error!](https://raw.githubusercontent.com/sayh3x/ETH-Transactions-Viewer/main/assets/error.gif)
+![Error](https://raw.githubusercontent.com/sayh3x/ETH-Transactions-Viewer/main/assets/error.gif)
 
 If you encounter any errors while running the code, here are some potential problems and solutions:
 

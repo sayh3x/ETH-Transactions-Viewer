@@ -72,6 +72,7 @@ def get_wallet_received_transactions(wallet_address, api_key):
         logging.error("An error occurred: %s", e)
         return None
 
+
 def get_ethereum_price():
     try:
         response = requests.get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd")
