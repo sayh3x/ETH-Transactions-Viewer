@@ -18,7 +18,7 @@ GITHUB_URL = "https://github.com/sayh3x/ETH-Transactions-Viewer"
 def clear():
     os.system('clear' if os.name == 'posix' else 'cls')
 
-def log_and_animate(message, duration=3, interval=0.5, level='INFO'):
+def log_and_animate(message, duration=3, interval=0.5, level='INFO', mote='.'):
 
     log_message = f'{time.strftime("%Y-%m-%d %H:%M:%S")} - {level} - {message}'
     print(log_message, end='', flush=True)
@@ -26,10 +26,10 @@ def log_and_animate(message, duration=3, interval=0.5, level='INFO'):
     end_time = time.time() + duration
     while time.time() < end_time:
         for dots in range(4):
-            sys.stdout.write(f'\r{log_message}{"." * dots}{" " * (3 - dots)}')
+            sys.stdout.write(f'\r{log_message}{mote * dots}{" " * (3 - dots)}')
             sys.stdout.flush()
             time.sleep(interval)
-    sys.stdout.write(f'\r{log_message}...\n')
+    sys.stdout.write(f'\r{log_message}{mote * 3}\n')
     sys.stdout.flush()
 
 def check_eth_balance(address, etherscan_api_key, retries=3, delay=5):
@@ -113,18 +113,20 @@ def display_transactions(transactions, eth_to_usd_rate):
         print("-" * (len_addres * 2))
         print()
 
-def check_wallet():
+def check_wallet(text_input='Enter ERC-20 Wallet (enter 0 to visit GitHub): '):
     print(Fore.GREEN)
     try:
-        wallet_address = input('Enter ERC-20 Wallet (enter 0 to visit GitHub): ');print(Fore.RESET)
+        wallet_address = input(text_input);print(Fore.RESET)
+        
         if wallet_address == '0':
-            logging.info("Opening GitHub repository...")
+            clear()
+            log_and_animate("Opening GitHub repository ", level='Waiting', mote='*')
             webbrowser.open(GITHUB_URL)
-            return
+            check_wallet(text_input='Enter ERC-20 Wallet for exit(Entr 00): ')
 
         elif wallet_address == 'exit' or wallet_address == '00':
             clear()
-            print(Fore.GREEN+"Bye ;)")
+            log_and_animate(Fore.YELLOW+"Bye ;", level='Exit', mote=')')
             sys.exit()
 
         log_and_animate('Checking wallet transactions')
@@ -135,7 +137,7 @@ def check_wallet():
             eth_to_usd_rate = get_ethereum_price() or 0
             display_transactions(received_transactions, eth_to_usd_rate)
         else:
-            log_and_animate("No transactions found or an error occurred", level='Problem!')
+            log_and_animate("No transactions found or an error occurred 'Check Api Key'", level='Problem', mote='!')
     except KeyboardInterrupt:
         clear()
         print(Fore.RED+'For exit Enter "exit" or "00".')
