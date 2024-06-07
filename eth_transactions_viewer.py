@@ -1,8 +1,7 @@
 from dotenv import load_dotenv
 from colorama import Fore
 import pyfiglet as pyg
-import time, os, requests, logging
-
+import time, os, requests, logging, webbrowser, sys
 
 # Load environment variables from .env file
 load_dotenv()
@@ -12,6 +11,26 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 # Set ETHERSCAN_API_KEY using environment variable or default value
 ETHERSCAN_API_KEY = os.getenv('ETHERSCAN_API_KEY')
+
+VERSION = "1.0.1"
+GITHUB_URL = "https://github.com/sayh3x/ETH-Transactions-Viewer"
+
+def clear():
+    os.system('clear' if os.name == 'posix' else 'cls')
+
+def log_and_animate(message, duration=3, interval=0.5, level='INFO'):
+
+    log_message = f'{time.strftime("%Y-%m-%d %H:%M:%S")} - {level} - {message}'
+    print(log_message, end='', flush=True)
+
+    end_time = time.time() + duration
+    while time.time() < end_time:
+        for dots in range(4):
+            sys.stdout.write(f'\r{log_message}{"." * dots}{" " * (3 - dots)}')
+            sys.stdout.flush()
+            time.sleep(interval)
+    sys.stdout.write(f'\r{log_message}...\n')
+    sys.stdout.flush()
 
 def check_eth_balance(address, etherscan_api_key, retries=3, delay=5):
     api_url = f"https://api.etherscan.io/api?module=account&action=balance&address={address}&tag=latest&apikey={etherscan_api_key}"
@@ -96,16 +115,41 @@ def display_transactions(transactions, eth_to_usd_rate):
 
 def check_wallet():
     print(Fore.GREEN)
-    wallet_address = input('Enter ERC-20 Wallet : ')
-    logging.info("Checking wallet transactions...")
+    try:
+        wallet_address = input('Enter ERC-20 Wallet (enter 0 to visit GitHub): ');print(Fore.RESET)
+        if wallet_address == '0':
+            logging.info("Opening GitHub repository...")
+            webbrowser.open(GITHUB_URL)
+            return
 
-    received_transactions = get_wallet_received_transactions(wallet_address, ETHERSCAN_API_KEY)
-    if received_transactions:
-        logging.info("Received Transactions:")
-        eth_to_usd_rate = get_ethereum_price() or 0
-        display_transactions(received_transactions, eth_to_usd_rate)
-    else:
-        logging.info("No transactions found or an error occurred.")
+        elif wallet_address == 'exit' or wallet_address == '00':
+            clear()
+            print(Fore.GREEN+"Bye ;)")
+            sys.exit()
+
+        log_and_animate('Checking wallet transactions')
+
+        received_transactions = get_wallet_received_transactions(wallet_address, ETHERSCAN_API_KEY)
+        if received_transactions:
+            logging.info("Received Transactions:")
+            eth_to_usd_rate = get_ethereum_price() or 0
+            display_transactions(received_transactions, eth_to_usd_rate)
+        else:
+            log_and_animate("No transactions found or an error occurred", level='Problem!')
+    except KeyboardInterrupt:
+        clear()
+        print(Fore.RED+'For exit Enter "exit" or "00".')
+        time.sleep(1)
+        log_and_animate('U KNOW ?', level='Baby')
+        check_wallet()
+
+def generate_logo():
+    clear()
+    logo = pyg.figlet_format('ETH Viewer', font='slant')
+    print(Fore.CYAN + logo + Fore.RESET)
+    print(Fore.RED + "𝘋𝘦𝘷𝘦𝘭𝘰𝘱𝘦𝘥 𝘣𝘺 𝙃3𝙓" + Fore.RESET)
+    print(Fore.YELLOW + "Version: " + VERSION + Fore.RESET)
 
 if __name__ == "__main__":
+    generate_logo()
     check_wallet()
