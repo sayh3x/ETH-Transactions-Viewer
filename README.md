@@ -21,7 +21,7 @@ Eth-Transactions-Viewer is a Python script designed to check the balance of an E
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/eth-transactions-viewer.git
+    git clone https://github.com/sayh3x/eth-transactions-viewer.git
     cd eth-transactions-viewer
     ```
 
@@ -54,6 +54,8 @@ The script will output the received transactions, wallet balance, and the balanc
 
 ## Example
 
+![Run](https://raw.githubusercontent.com/sayh3x/ETH-Transactions-Viewer/main/assets/work.gif)
+
 ```bash
 $ python eth_transactions_viewer.py
 Enter ERC-20 Wallet : 0x3D55CCb2a943d88D39dd2E62DAf767C69fD0179F
@@ -76,3 +78,41 @@ ETH Balance: 1e-18
 Convert ETH to USD: 3.847840000000001e-15
 
 ------------------------------------------------------------------------------------
+
+## Troubleshooting
+
+![Error!](https://raw.githubusercontent.com/sayh3x/ETH-Transactions-Viewer/main/assets/error.gif)
+
+If you encounter any errors while running the code, here are some potential problems and solutions:
+
+### Problem: Network or Connectivity Issues
+**Cause**: The code may fail to execute properly due to network connectivity issues.
+**Solution**: Ensure that you have a stable internet connection. Check your network settings and try accessing other websites to verify your connection.
+
+### Problem: API Endpoint Issues
+**Cause**: The code may encounter errors if there is an issue with the API endpoint, such as Etherscan.io.
+**Solution**: 
+1. **Check the API Status**: Visit the [Etherscan.io status page](https://etherscan.io) to check if the API service is operational.
+2. **Verify the API URL**: Ensure that the API endpoint URL in your code is correct.
+3. **Inspect API Key**: If your API requires an API key, ensure that it is valid and has the necessary permissions.
+
+### Problem: Wallet Address Issues
+**Cause**: Errors can occur if the wallet address provided is incorrect or not formatted properly.
+**Solution**: 
+1. **Verify the Wallet Address**: Double-check the wallet address to ensure it is correct and follows the required format.
+2. **Validate Address Format**: Ensure that the wallet address conforms to the expected format for the specific blockchain (e.g., Ethereum addresses should start with '0x').
+
+### Example Check:
+```sh
+# Check internet connectivity
+ping -c 4 google.com
+
+# Check API endpoint status
+curl -I https://api.etherscan.io/api
+
+# Validate Ethereum wallet address format
+if [[ $wallet_address =~ ^0x[a-fA-F0-9]{40}$ ]]; then
+    echo "Valid wallet address"
+else
+    echo "Invalid wallet address"
+fi

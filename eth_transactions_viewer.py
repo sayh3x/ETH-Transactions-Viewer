@@ -137,7 +137,7 @@ def check_wallet(text_input='Enter ERC-20 Wallet (enter 0 to visit GitHub): '):
             eth_to_usd_rate = get_ethereum_price() or 0
             display_transactions(received_transactions, eth_to_usd_rate)
         else:
-            log_and_animate("No transactions found or an error occurred 'Check Api Key'", level='Problem', mote='!')
+            log_and_animate("No transactions found or 'Check Api Key'", level='Problem', mote='!')
     except KeyboardInterrupt:
         clear()
         print(Fore.RED+'For exit Enter "exit" or "00".')
