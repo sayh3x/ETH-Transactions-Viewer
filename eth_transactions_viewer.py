@@ -170,7 +170,7 @@ def check_wallet(text_input='Enter ERC-20 Wallet (enter 0 to visit GitHub): ', p
             clear()
             log_and_animate(Fore.YELLOW + "Bye ;", level='Exit', mote=')')
             sys.exit()
-        # Save Transactions
+        # Save Transactions in file
         elif wallet_address == 'save':
             if received_transactions:
                 save_transactions(received_transactions, eth_to_usd_rate, privios=privios)
