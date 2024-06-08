@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Set ETHERSCAN_API_KEY using environment variable or default value
 ETHERSCAN_API_KEY = os.getenv('ETHERSCAN_API_KEY')
 
-VERSION = "1.0.4"
+VERSION = "1.0.5"
 GITHUB_URL = "https://github.com/sayh3x/ETH-Transactions-Viewer"
 
 received_transactions = []
