@@ -19,7 +19,6 @@ def clear():
     os.system('clear' if os.name == 'posix' else 'cls')
 
 def log_and_animate(message, duration=3, interval=0.5, level='INFO', mote='.'):
-
     log_message = f'{time.strftime("%Y-%m-%d %H:%M:%S")} - {level} - {message}'
     print(log_message, end='', flush=True)
 
@@ -63,7 +62,7 @@ def get_wallet_received_transactions(wallet_address, api_key):
         
         if data["status"] == "1":
             transactions = data["result"]
-            received_transactions = [(tx["value"], tx["to"]) for tx in transactions if tx["to"].lower() != wallet_address.lower()]
+            received_transactions = [{"value": tx["value"], "to": tx["to"], "tx_hash": tx["hash"], "from": tx["from"], "timestamp": tx["timeStamp"]} for tx in transactions if tx["to"].lower() == wallet_address.lower()]
             return received_transactions
         else:
             logging.error("Error: %s", data["message"])
@@ -71,7 +70,6 @@ def get_wallet_received_transactions(wallet_address, api_key):
     except Exception as e:
         logging.error("An error occurred: %s", e)
         return None
-
 
 def get_ethereum_price():
     try:
@@ -90,10 +88,12 @@ def set_terminal_title(title):
     os.system(f"echo -n \"\\033]0;{title}\\007\"")
 
 def display_transactions(transactions, eth_to_usd_rate):
-    for value, sender_address in transactions:
-        lower_sender_address = sender_address 
-        len_addres = len(lower_sender_address)
-        mid_point = len_addres // 2 
+    for tx in transactions:
+        value_in_eth = int(tx["value"]) / 1e18
+        usd_value = convert_to_usd(value_in_eth, eth_to_usd_rate)
+        lower_sender_address = tx["from"]
+        len_address = len(lower_sender_address)
+        mid_point = len_address // 2
 
         balance = check_eth_balance(address=lower_sender_address, etherscan_api_key=ETHERSCAN_API_KEY)
         balance_in_usd = convert_to_usd(balance, eth_to_usd_rate)
@@ -101,23 +101,40 @@ def display_transactions(transactions, eth_to_usd_rate):
         set_terminal_title(f"Sender Address: {lower_sender_address}")
 
         print()
-        for i in range(len_addres):
+        for i in range(len_address):
             if i == mid_point:
                 print(f"'{lower_sender_address}'", end='')
             else:
                 print('-', end='')
         print('\n')
-        print(f"Send Value: {value}")
+        print(f"Send Value: {value_in_eth} ETH")
         print(f"ETH Balance: {balance}")
         print(f"Convert ETH to USD: {balance_in_usd}\n")
 
-        print("-" * (len_addres * 2))
+        print("-" * (len_address * 2))
         print()
+
+def save_transactions(transactions, wallet_address, eth_to_usd_rate):
+    log_and_animate(f'Save transactions in {wallet_address}.txt ', level='Saving', mote='#')
+    if not os.path.exists('eth_log'):
+        os.makedirs('eth_log')
+                
+    with open(os.path.join('eth_log', f'{wallet_address}.txt'), 'w') as file:
+        for tx in transactions:
+            value_in_eth = int(tx["value"]) / 1e18
+            usd_value = convert_to_usd(value_in_eth, eth_to_usd_rate)
+            file.write(f"Transaction Hash: {tx['tx_hash']}\n")
+            file.write(f"Value: {value_in_eth} ETH\n")
+            file.write(f"Value in USD: {usd_value}\n")
+            file.write(f"From: {tx['from']}\n")
+            file.write(f"To: {tx['to']}\n")
+            file.write(f"Timestamp: {tx['timestamp']}\n")
+            file.write("\n")
 
 def check_wallet(text_input='Enter ERC-20 Wallet (enter 0 to visit GitHub): '):
     print(Fore.GREEN)
     try:
-        wallet_address = input(text_input);print(Fore.RESET)
+        wallet_address = input(text_input); print(Fore.RESET)
         
         if wallet_address == '0':
             clear()
@@ -127,7 +144,7 @@ def check_wallet(text_input='Enter ERC-20 Wallet (enter 0 to visit GitHub): '):
 
         elif wallet_address == 'exit' or wallet_address == '00':
             clear()
-            log_and_animate(Fore.YELLOW+"Bye ;", level='Exit', mote=')')
+            log_and_animate(Fore.YELLOW + "Bye ;", level='Exit', mote=')')
             sys.exit()
 
         log_and_animate('Checking wallet transactions')
@@ -137,13 +154,16 @@ def check_wallet(text_input='Enter ERC-20 Wallet (enter 0 to visit GitHub): '):
             logging.info("Received Transactions:")
             eth_to_usd_rate = get_ethereum_price() or 0
             display_transactions(received_transactions, eth_to_usd_rate)
+
+            save_transactions(received_transactions, wallet_address, eth_to_usd_rate)
         else:
             log_and_animate("No transactions found or 'Check Api Key'", level='Problem', mote='!')
+    
     except KeyboardInterrupt:
         clear()
-        print(Fore.RED+'For exit Enter "exit" or "00".')
+        print(Fore.RED + 'For exit Enter "exit" or "00".')
         time.sleep(1)
-        log_and_animate('U KNOW ?', level='Baby')
+        log_and_animate('U KNOW ', level='Baby', mote='?')
         check_wallet()
 
 def generate_logo():
