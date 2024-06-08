@@ -1,8 +1,7 @@
 from dotenv import load_dotenv
 from colorama import Fore
 import pyfiglet as pyg
-import time, os, requests, logging, webbrowser, sys
-
+import time, os, requests, logging, webbrowser, sys, shutil
 # Load environment variables from .env file
 load_dotenv()
 
@@ -12,10 +11,9 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Set ETHERSCAN_API_KEY using environment variable or default value
 ETHERSCAN_API_KEY = os.getenv('ETHERSCAN_API_KEY')
 
-VERSION = "1.0.1"
+VERSION = "1.0.4"
 GITHUB_URL = "https://github.com/sayh3x/ETH-Transactions-Viewer"
 
-# تعریف متغیرهای سراسری
 received_transactions = []
 wallet_address = ""
 eth_to_usd_rate = 0
@@ -24,7 +22,7 @@ is_checking_transactions = False
 def clear():
     os.system('clear' if os.name == 'posix' else 'cls')
 
-def log_and_animate(message, duration=10, interval=0.5, level='INFO', mote='.'):
+def log_and_animate(message, duration=3, interval=0.5, level='INFO', mote='.'):
     log_message = f'{time.strftime("%Y-%m-%d %H:%M:%S")} - {level} - {message}'
     print(log_message, end='', flush=True)
 
@@ -146,14 +144,24 @@ def check_wallet(text_input='Enter ERC-20 Wallet (enter 0 to visit GitHub): ', p
         
         if wallet_address == '0':
             clear()
-            log_and_animate("Opening GitHub repository ", level='Waiting', mote='*')
+            log_and_animate("Opening GitHub repository ", level='Waiting', mote='*', duration=1)
             webbrowser.open(GITHUB_URL)
             check_wallet(text_input='Enter ERC-20 Wallet for exit(Enter 00): ')
-
+        
+        elif wallet_address == 'del' or wallet_address == 'rem':
+            log_and_animate('Removing ', level='Waiting', mote=';D')
+            dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'eth_log')
+            if os.path.exists(dir_path):
+                shutil.rmtree(dir_path)
+                main(sayh3x=f"Folder {dir_path} has been removed.")
+            else:
+                main(sayh3x="i Can't find 'eth_log' folder")
+        
         elif wallet_address == 'exit' or wallet_address == '00':
             clear()
             log_and_animate(Fore.YELLOW + "Bye ;", level='Exit', mote=')')
             sys.exit()
+        
         elif wallet_address == 'save':
             if received_transactions:
                 save_transactions(received_transactions, eth_to_usd_rate, privios=privios)
