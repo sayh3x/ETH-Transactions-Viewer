@@ -143,7 +143,7 @@ def save_transactions(transactions, eth_to_usd_rate, privios):
             file.write(f"To: {tx['to']}\n")
             file.write(f"Timestamp: {tx['timestamp']}\n")
             file.write("\n")
-
+# Check Main Wallet Transaction
 def check_wallet(text_input='Enter ERC-20 Wallet (enter 0 to visit GitHub): ', privios=None):
     global received_transactions, wallet_address, eth_to_usd_rate, is_checking_transactions
 
