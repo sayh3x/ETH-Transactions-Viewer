@@ -35,6 +35,7 @@ def log_and_animate(message, duration=3, interval=0.5, level='INFO', mote='.'):
     sys.stdout.write(f'\r{log_message}{mote * 3}\n')
     sys.stdout.flush()
 
+# Check Target ETH Balance with api.etherscan.io  
 def check_eth_balance(address, etherscan_api_key, retries=3, delay=5):
     api_url = f"https://api.etherscan.io/api?module=account&action=balance&address={address}&tag=latest&apikey={etherscan_api_key}"
 
