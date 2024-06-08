@@ -54,11 +54,11 @@ Eth-Transactions-Viewer is a Python script designed to check the balance of an E
 
 2. Enter the Ethereum wallet address when prompted.
 
-The script will output the received transactions, wallet balance, and the balance converted to USD.
+** The script will output the received transactions, wallet balance, and the balance converted to USD.
 
 3. Save 
 
-Enter "save" after enter wallet or ener "ctrl+c"
+** Enter `save` After enter wallet or ener `ctrl+c`
 
 ## Example
 
