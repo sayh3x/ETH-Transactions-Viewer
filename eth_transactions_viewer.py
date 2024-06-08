@@ -1,7 +1,9 @@
+# import library
 from dotenv import load_dotenv
 from colorama import Fore
 import pyfiglet as pyg
 import time, os, requests, logging, webbrowser, sys, shutil
+
 # Load environment variables from .env file
 load_dotenv()
 
