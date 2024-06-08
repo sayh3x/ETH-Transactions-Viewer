@@ -21,6 +21,7 @@ wallet_address = ""
 eth_to_usd_rate = 0
 is_checking_transactions = False
 
+# Function for Clear Terminal 
 def clear():
     os.system('clear' if os.name == 'posix' else 'cls')
 
