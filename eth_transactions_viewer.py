@@ -57,6 +57,7 @@ def check_eth_balance(address, etherscan_api_key, retries=3, delay=5):
                 logging.error("Error checking balance: %s", str(e))
                 return 0
 
+
 def get_wallet_received_transactions(wallet_address, api_key):
     url = f"https://api.etherscan.io/api?module=account&action=txlist&address={wallet_address}&apikey={api_key}"
     
@@ -75,6 +76,7 @@ def get_wallet_received_transactions(wallet_address, api_key):
         logging.error("An error occurred: %s", e)
         return None
 
+# Get ETH price with api.coingecko.com api
 def get_ethereum_price():
     try:
         response = requests.get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd")
@@ -85,12 +87,15 @@ def get_ethereum_price():
         logging.error("Error fetching Ethereum price: %s", str(e))
         return None
 
+# Convert eth to usdt with api
 def convert_to_usd(eth_amount, eth_to_usd_rate):
     return eth_amount * eth_to_usd_rate
 
+# Add title for terminal
 def set_terminal_title(title):
     os.system(f"echo -n \"\\033]0;{title}\\007\"")
 
+# View output in terminal 
 def display_transactions(transactions, eth_to_usd_rate):
     for tx in transactions:
         value_in_eth = int(tx["value"]) / 1e18
@@ -117,7 +122,7 @@ def display_transactions(transactions, eth_to_usd_rate):
 
         print("-" * (len_address * 2))
         print()
-
+# Function for fast save Transactions file
 def save_transactions(transactions, eth_to_usd_rate, privios):
     log_and_animate(f'Save transactions in {privios}.txt ', level='Waiting', mote='#')
     if not os.path.exists('eth_log'):
@@ -141,13 +146,13 @@ def check_wallet(text_input='Enter ERC-20 Wallet (enter 0 to visit GitHub): ', p
     print(Fore.GREEN)
     try:
         wallet_address = input(text_input); print(Fore.RESET)
-        
+        # Open Github repository 
         if wallet_address == '0':
             clear()
             log_and_animate("Opening GitHub repository ", level='Waiting', mote='*', duration=1)
             webbrowser.open(GITHUB_URL)
             check_wallet(text_input='Enter ERC-20 Wallet for exit(Enter 00): ')
-        
+        # Delet Transactions save folder
         elif wallet_address == 'del' or wallet_address == 'rem':
             log_and_animate('Removing ', level='Waiting', mote=';D')
             dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'eth_log')
@@ -156,7 +161,7 @@ def check_wallet(text_input='Enter ERC-20 Wallet (enter 0 to visit GitHub): ', p
                 main(sayh3x=f"Folder {dir_path} has been removed.")
             else:
                 main(sayh3x="i Can't find 'eth_log' folder")
-        
+        # Save Transactions
         elif wallet_address == 'exit' or wallet_address == '00':
             clear()
             log_and_animate(Fore.YELLOW + "Bye ;", level='Exit', mote=')')
@@ -199,6 +204,10 @@ def generate_logo(text_info=''):
     print(Fore.RED + "𝘋𝘦𝘷𝘦𝘭𝘰𝘱𝘦𝘥 𝘣𝘺 𝙃3𝙓" + Fore.RESET)
     print(Fore.YELLOW + "Version: " + VERSION + Fore.RESET)
 
+def main(sayh3x=''):
+    generate_logo(text_info=sayh3x)
+    check_wallet()
+
 # def on_ctrl_s():
 #     global received_transactions, wallet_address, eth_to_usd_rate, is_checking_transactions
 #     if not wallet_address:
@@ -217,9 +226,6 @@ def generate_logo(text_info=''):
 #         print("Saving transactions...")
 #         save_transactions(received_transactions, wallet_address, eth_to_usd_rate)
 
-def main(sayh3x=''):
-    generate_logo(text_info=sayh3x)
-    check_wallet()
 
 # listener = keyboard.GlobalHotKeys({
 #     '<ctrl>+s': on_ctrl_s
