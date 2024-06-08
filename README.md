@@ -1,8 +1,8 @@
+# Eth-Transactions-Viewer
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/sayh3x/ETH-Transactions-Viewer/main/assets/main.webp" style="max-width: 100%; height: auto;" alt="Main logo">
 </p>
-
-# Eth-Transactions-Viewer
 
 Eth-Transactions-Viewer is a Python script designed to check the balance of an Ethereum wallet and retrieve transaction information. This tool interacts with the Etherscan API to provide detailed insights into wallet activity and balance.
 
