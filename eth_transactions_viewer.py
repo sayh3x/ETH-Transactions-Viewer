@@ -197,6 +197,7 @@ def check_wallet(text_input='Enter ERC-20 Wallet (enter 0 to visit GitHub): ', p
     finally:
         is_checking_transactions = False
 
+# Add Logo in terminal 
 def generate_logo(text_info=''):
     clear()
     logo = pyg.figlet_format('ETH Viewer', font='slant')
@@ -208,6 +209,7 @@ def generate_logo(text_info=''):
     print(Fore.RED + "𝘋𝘦𝘷𝘦𝘭𝘰𝘱𝘦𝘥 𝘣𝘺 𝙃3𝙓" + Fore.RESET)
     print(Fore.YELLOW + "Version: " + VERSION + Fore.RESET)
 
+# Main Function
 def main(sayh3x=''):
     generate_logo(text_info=sayh3x)
     check_wallet()
@@ -237,6 +239,7 @@ def main(sayh3x=''):
 
 # listener.start()
 
+# Run
 if __name__ == "__main__":
     try:
         main()
