@@ -57,7 +57,7 @@ def check_eth_balance(address, etherscan_api_key, retries=3, delay=5):
                 logging.error("Error checking balance: %s", str(e))
                 return 0
 
-
+# Get Wallet Transactions
 def get_wallet_received_transactions(wallet_address, api_key):
     url = f"https://api.etherscan.io/api?module=account&action=txlist&address={wallet_address}&apikey={api_key}"
     
