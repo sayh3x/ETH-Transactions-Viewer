@@ -62,6 +62,10 @@ Eth-Transactions-Viewer is a Python script designed to check the balance of an E
 
 ## Example
 
+4. Delet Transactions File
+
+** For Delet Enter `del` Or `rem` in Input Script
+
 ![Run](https://raw.githubusercontent.com/sayh3x/ETH-Transactions-Viewer/main/assets/work.gif)
 
 ```bash
