@@ -176,7 +176,7 @@ def check_wallet(text_input='Enter ERC-20 Wallet (enter 0 to visit GitHub): ', p
                 save_transactions(received_transactions, eth_to_usd_rate, privios=privios)
                 main(sayh3x=f"Save in path {os.path.join(os.path.dirname(os.path.abspath(__file__)), 'eth_log')}")
             else:
-                generate_logo(text_info='Please Enter address wallet\nand after enter wallet enter "save".')
+                generate_logo(text_info='Please Enter address wallet\r\nand after enter wallet enter "save".')
                 check_wallet()
         log_and_animate('Checking wallet transactions')
         is_checking_transactions = True
