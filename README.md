@@ -18,7 +18,9 @@ Eth-Transactions-Viewer is a Python script designed to check the balance of an E
 
 - Python 3.x
 - `requests` library
-- Etherscan API key
+- `colorama` library
+- `pyfiglet` library
+- `python-dotenv` library
 
 ## Installation
 
