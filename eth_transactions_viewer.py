@@ -68,7 +68,7 @@ def get_wallet_received_transactions(wallet_address, api_key):
     try:
         response = requests.get(url)
         data = response.json()
-        
+
         if data["status"] == "1":
             transactions = data["result"]
             received_transactions = [{"value": tx["value"], "to": tx["to"], "tx_hash": tx["hash"], "from": tx["from"], "timestamp": tx["timeStamp"]} for tx in transactions if tx["to"].lower() == wallet_address.lower()]
@@ -176,8 +176,8 @@ def check_wallet(text_input='Enter ERC-20 Wallet (enter 0 to visit GitHub): ', p
                 save_transactions(received_transactions, eth_to_usd_rate, privios=privios)
                 main(sayh3x=f"Save in path {os.path.join(os.path.dirname(os.path.abspath(__file__)), 'eth_log')}")
             else:
-                generate_logo(text_info='Please Enter address wallet\r\nand after enter wallet enter "save".')
-                check_wallet()
+                main(sayh3x='Please Enter address wallet\r\nand after enter wallet enter "save".')
+
         log_and_animate('Checking wallet transactions')
         is_checking_transactions = True
 
